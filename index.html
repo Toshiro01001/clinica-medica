@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <title>Clínica Alameda | Cuidado organizado, do agendamento ao resultado</title>
+  <meta name="description" content="Site de demonstração de uma clínica médica fictícia com várias especialidades: busca de médicos por convênio, agendamento simulado, área do paciente e mapa de como chegar. Feito pela Mil e Uma Linhas!.">
+  <meta name="theme-color" content="#3B2A48">
+  <link rel="canonical" href="https://toshiro01001.github.io/clinica-medica/">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="fonts/young-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/figtree-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+  <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+
+  <p class="faixa-demo">Demonstração da <a href="https://mileumalinhas.com.br">Mil e Uma Linhas!</a> com dados fictícios: clínica, médicos e exames são inventados.</p>
+
+  <header class="topo">
+    <div class="miolo topo-miolo">
+      <a class="marca" href="#inicio" aria-label="Clínica Alameda, início">
+        <svg class="marca-sinal" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+          <rect x="2" y="2" width="28" height="28" rx="7" fill="currentColor"/>
+          <rect x="7" y="7" width="8" height="8" rx="2" fill="#F4F1F5"/>
+          <rect x="17" y="7" width="8" height="8" rx="2" fill="#F4F1F5"/>
+          <rect x="7" y="17" width="8" height="8" rx="2" fill="#F4F1F5"/>
+          <circle cx="21" cy="21" r="4" fill="#E2A233"/>
+        </svg>
+        <span class="marca-nome">Clínica Alameda</span>
+      </a>
+      <button class="menu-botao" id="menu-botao" type="button" aria-expanded="false" aria-controls="menu">
+        <span class="menu-botao-traco" aria-hidden="true"></span>
+        <span class="menu-botao-texto">Menu</span>
+      </button>
+      <nav class="menu" id="menu" aria-label="Seções do site">
+        <ul>
+          <li><a href="#especialidades">Especialidades</a></li>
+          <li><a href="#agendar">Agendar</a></li>
+          <li><a href="#paciente">Área do paciente</a></li>
+          <li><a href="#como-chegar">Como chegar</a></li>
+          <li><a href="#como-funciona">Como isto funciona</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo">
+
+    <!-- ABERTURA -->
+    <section class="hero" id="inicio" aria-labelledby="hero-titulo">
+      <div class="miolo hero-grade">
+        <div class="hero-texto">
+          <p class="hero-chapeu">Clínica médica com oito especialidades em um só endereço</p>
+          <h1 id="hero-titulo">Cuidado organizado, do agendamento ao resultado.</h1>
+          <p class="hero-apoio">Aqui você encontra o médico certo pelo seu convênio, marca a consulta em um minuto e vê os resultados dos exames sem sair de casa. Comece escolhendo um consultório na planta da clínica ou pelo botão abaixo.</p>
+          <div class="hero-acoes">
+            <a class="botao botao-principal" href="#agendar">Agendar uma consulta</a>
+            <a class="botao botao-secundario" href="#especialidades">Ver médicos e convênios</a>
+          </div>
+          <dl class="hero-fatos">
+            <div><dt>Horário</dt><dd>Segunda a sexta, 7h às 19h. Sábado, 7h às 12h.</dd></div>
+            <div><dt>Convênios</dt><dd>Cinco convênios fictícios e atendimento particular.</dd></div>
+          </dl>
+        </div>
+
+        <figure class="planta-figura">
+          <svg class="planta" viewBox="0 0 640 440" role="group" aria-labelledby="planta-titulo" aria-describedby="planta-desc" id="planta">
+            <title id="planta-titulo">Planta da Clínica Alameda</title>
+            <desc id="planta-desc">Planta baixa com recepção, sala de espera, um corredor central e oito consultórios, um por especialidade. Cada consultório é um link que filtra a busca de médicos.</desc>
+            <rect class="planta-parede" x="8" y="8" width="624" height="424" rx="18"/>
+
+            <g class="planta-sala planta-sala-fixa" data-ordem="0">
+              <rect x="24" y="24" width="130" height="180" rx="10"/>
+              <text x="40" y="52">Recepção</text>
+              <circle class="planta-voce" cx="89" cy="124" r="9"/>
+              <text class="planta-voce-texto" x="89" y="160">você está aqui</text>
+            </g>
+            <g class="planta-sala planta-sala-fixa" data-ordem="1">
+              <rect x="24" y="236" width="130" height="180" rx="10"/>
+              <text x="40" y="264">Sala de espera</text>
+              <g class="planta-cadeiras" aria-hidden="true">
+                <rect x="44" y="300" width="22" height="14" rx="4"/><rect x="78" y="300" width="22" height="14" rx="4"/><rect x="112" y="300" width="22" height="14" rx="4"/>
+                <rect x="44" y="330" width="22" height="14" rx="4"/><rect x="78" y="330" width="22" height="14" rx="4"/><rect x="112" y="330" width="22" height="14" rx="4"/>
+                <rect x="44" y="360" width="22" height="14" rx="4"/><rect x="78" y="360" width="22" height="14" rx="4"/><rect x="112" y="360" width="22" height="14" rx="4"/>
+              </g>
+            </g>
+
+            <rect class="planta-corredor" x="170" y="196" width="446" height="48" rx="8"/>
+            <text class="planta-corredor-texto" x="393" y="225">corredor</text>
+
+            <a class="planta-sala" href="#especialidades" data-esp="clinica-geral" data-ordem="2"><rect x="170" y="24" width="107" height="160" rx="10"/><rect class="planta-mesa" x="184" y="150" width="40" height="14" rx="3"/><rect class="planta-maca" x="238" y="68" width="26" height="64" rx="7"/><text x="184" y="52">Clínica</text><text x="184" y="72">Geral</text><rect class="planta-porta" x="206" y="181" width="36" height="6"/></a>
+            <a class="planta-sala" href="#especialidades" data-esp="cardiologia" data-ordem="3"><rect x="283" y="24" width="107" height="160" rx="10"/><rect class="planta-mesa" x="297" y="150" width="40" height="14" rx="3"/><rect class="planta-maca" x="351" y="68" width="26" height="64" rx="7"/><text x="297" y="52">Cardiologia</text><rect class="planta-porta" x="319" y="181" width="36" height="6"/></a>
+            <a class="planta-sala" href="#especialidades" data-esp="dermatologia" data-ordem="4"><rect x="396" y="24" width="107" height="160" rx="10"/><rect class="planta-mesa" x="410" y="150" width="40" height="14" rx="3"/><rect class="planta-maca" x="464" y="68" width="26" height="64" rx="7"/><text x="410" y="52">Dermatologia</text><rect class="planta-porta" x="432" y="181" width="36" height="6"/></a>
+            <a class="planta-sala" href="#especialidades" data-esp="pediatria" data-ordem="5"><rect x="509" y="24" width="107" height="160" rx="10"/><rect class="planta-mesa" x="523" y="150" width="40" height="14" rx="3"/><rect class="planta-maca" x="577" y="68" width="26" height="64" rx="7"/><text x="523" y="52">Pediatria</text><rect class="planta-porta" x="545" y="181" width="36" height="6"/></a>
+
+            <a class="planta-sala" href="#especialidades" data-esp="ginecologia" data-ordem="6"><rect x="170" y="256" width="107" height="160" rx="10"/><rect class="planta-mesa" x="184" y="382" width="40" height="14" rx="3"/><rect class="planta-maca" x="238" y="300" width="26" height="64" rx="7"/><text x="184" y="284">Ginecologia</text><rect class="planta-porta" x="206" y="253" width="36" height="6"/></a>
+            <a class="planta-sala" href="#especialidades" data-esp="ortopedia" data-ordem="7"><rect x="283" y="256" width="107" height="160" rx="10"/><rect class="planta-mesa" x="297" y="382" width="40" height="14" rx="3"/><rect class="planta-maca" x="351" y="300" width="26" height="64" rx="7"/><text x="297" y="284">Ortopedia</text><rect class="planta-porta" x="319" y="253" width="36" height="6"/></a>
+            <a class="planta-sala" href="#especialidades" data-esp="endocrinologia" data-ordem="8"><rect x="396" y="256" width="107" height="160" rx="10"/><rect class="planta-mesa" x="410" y="382" width="40" height="14" rx="3"/><rect class="planta-maca" x="464" y="300" width="26" height="64" rx="7"/><text x="410" y="284">Endocrino-</text><text x="410" y="304">logia</text><rect class="planta-porta" x="432" y="253" width="36" height="6"/></a>
+            <a class="planta-sala" href="#especialidades" data-esp="oftalmologia" data-ordem="9"><rect x="509" y="256" width="107" height="160" rx="10"/><rect class="planta-mesa" x="523" y="382" width="40" height="14" rx="3"/><rect class="planta-maca" x="577" y="300" width="26" height="64" rx="7"/><text x="523" y="284">Oftalmologia</text><rect class="planta-porta" x="545" y="253" width="36" height="6"/></a>
+          </svg>
+          <figcaption>Planta da clínica. Toque em um consultório para ver os médicos daquela especialidade.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- BUSCA -->
+    <section class="secao" id="especialidades" aria-labelledby="busca-titulo">
+      <div class="miolo">
+        <div class="secao-cabeca">
+          <h2 id="busca-titulo">Especialidades e médicos</h2>
+          <p>Esta é a lista de quem atende aqui. Digite um nome ou escolha a especialidade e o seu convênio para ver só quem serve para você.</p>
+        </div>
+
+        <form class="busca" id="busca" role="search" aria-label="Buscar médicos">
+          <div class="busca-linha">
+            <label class="campo">
+              <span class="campo-rotulo">Nome do médico ou especialidade</span>
+              <input type="search" id="busca-texto" name="texto" placeholder="Ex.: Cardiologia ou Dra. Helena" autocomplete="off">
+            </label>
+            <label class="campo">
+              <span class="campo-rotulo">Convênio</span>
+              <select id="busca-convenio" name="convenio">
+                <option value="">Todos os convênios</option>
+              </select>
+            </label>
+          </div>
+          <fieldset class="chips">
+            <legend class="campo-rotulo">Especialidade</legend>
+            <div class="chips-lista" id="busca-chips">
+              <label class="chip"><input type="radio" name="esp" value="" checked><span>Todas</span></label>
+            </div>
+          </fieldset>
+        </form>
+
+        <p class="busca-resumo" id="busca-resumo" aria-live="polite">Carregando a lista de médicos.</p>
+        <ul class="medicos" id="busca-lista" aria-label="Resultados da busca"></ul>
+      </div>
+    </section>
+
+    <!-- AGENDAMENTO -->
+    <section class="secao secao-escura" id="agendar" aria-labelledby="agendar-titulo">
+      <div class="miolo">
+        <div class="secao-cabeca">
+          <h2 id="agendar-titulo">Agendar uma consulta</h2>
+          <p>Em quatro passos você escolhe especialidade, médico, dia e horário. É uma simulação: nenhum pedido sai do seu navegador e nenhuma consulta é marcada de verdade.</p>
+        </div>
+
+        <form class="agenda" id="agenda" novalidate>
+          <ol class="passos">
+            <li class="passo" id="passo-1">
+              <h3><span class="passo-num" aria-hidden="true">1</span> Especialidade</h3>
+              <label class="campo">
+                <span class="campo-rotulo">Qual especialidade você precisa?</span>
+                <select id="ag-esp" name="esp" required>
+                  <option value="">Escolha uma especialidade</option>
+                </select>
+              </label>
+            </li>
+
+            <li class="passo esta-bloqueado" id="passo-2">
+              <h3><span class="passo-num" aria-hidden="true">2</span> Médico</h3>
+              <fieldset class="opcoes" id="ag-medicos">
+                <legend class="campo-rotulo">Com quem você quer consultar?</legend>
+                <p class="passo-ajuda">Escolha a especialidade primeiro.</p>
+              </fieldset>
+            </li>
+
+            <li class="passo esta-bloqueado" id="passo-3">
+              <h3><span class="passo-num" aria-hidden="true">3</span> Dia e horário</h3>
+              <p class="passo-ajuda" id="ag-cal-ajuda">Escolha o médico primeiro.</p>
+              <div class="calendario" id="ag-cal" hidden>
+                <div class="calendario-topo">
+                  <button type="button" class="botao-icone" id="cal-anterior" aria-label="Mês anterior">&#8249;</button>
+                  <h4 id="cal-mes" aria-live="polite">Mês</h4>
+                  <button type="button" class="botao-icone" id="cal-proximo" aria-label="Próximo mês">&#8250;</button>
+                </div>
+                <div class="calendario-grade" id="cal-grade" aria-label="Dias do mês"></div>
+                <p class="legenda">Os dias em que o médico atende aparecem marcados. Dias passados e fins de semana sem atendimento ficam desativados.</p>
+              </div>
+              <div class="horarios" id="ag-horarios" hidden>
+                <p class="campo-rotulo" id="horarios-rotulo">Horários livres</p>
+                <div class="horarios-lista" id="horarios-lista" role="radiogroup" aria-labelledby="horarios-rotulo"></div>
+              </div>
+            </li>
+
+            <li class="passo esta-bloqueado" id="passo-4">
+              <h3><span class="passo-num" aria-hidden="true">4</span> Seus dados</h3>
+              <div class="busca-linha">
+                <label class="campo">
+                  <span class="campo-rotulo">Nome completo</span>
+                  <input type="text" id="ag-nome" name="nome" autocomplete="off" required minlength="3">
+                </label>
+                <label class="campo">
+                  <span class="campo-rotulo">Telefone com DDD</span>
+                  <input type="tel" id="ag-fone" name="fone" inputmode="numeric" placeholder="(65) 90000-0000" autocomplete="off" required>
+                </label>
+                <label class="campo">
+                  <span class="campo-rotulo">Convênio</span>
+                  <select id="ag-convenio" name="convenio" required></select>
+                </label>
+              </div>
+              <label class="marcar">
+                <input type="checkbox" id="ag-guardar" name="guardar">
+                <span>Guardar este agendamento neste navegador (fica só no seu aparelho; você pode apagar quando quiser).</span>
+              </label>
+              <p class="erro" id="ag-erro" role="alert" hidden></p>
+              <button class="botao botao-principal" type="submit">Confirmar agendamento simulado</button>
+            </li>
+          </ol>
+        </form>
+
+        <div class="confirmacao" id="ag-resumo" role="status" aria-live="polite" hidden></div>
+
+        <div class="meus" id="meus" hidden>
+          <h3>Agendamentos guardados neste navegador</h3>
+          <ul id="meus-lista"></ul>
+          <button class="botao botao-secundario" type="button" id="meus-apagar">Apagar todos</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ÁREA DO PACIENTE -->
+    <section class="secao" id="paciente" aria-labelledby="paciente-titulo">
+      <div class="miolo">
+        <div class="secao-cabeca">
+          <h2 id="paciente-titulo">Área do paciente</h2>
+          <p>Aqui o paciente vê os resultados dos exames. Para testar, entre com o usuário e a senha de demonstração escritos ao lado do formulário.</p>
+        </div>
+
+        <div class="paciente-grade" id="paciente-entrada">
+          <form class="login" id="login" novalidate>
+            <label class="campo">
+              <span class="campo-rotulo">Usuário</span>
+              <input type="text" id="login-usuario" name="usuario" autocomplete="off" autocapitalize="none" spellcheck="false" required>
+            </label>
+            <label class="campo">
+              <span class="campo-rotulo">Senha</span>
+              <input type="password" id="login-senha" name="senha" autocomplete="off" required>
+            </label>
+            <p class="erro" id="login-erro" role="alert" hidden></p>
+            <button class="botao botao-principal" type="submit">Entrar</button>
+          </form>
+          <aside class="dica" aria-label="Dados de acesso de demonstração">
+            <h3>Acesso de demonstração</h3>
+            <p>Usuário: <code>paciente.demo</code><br>Senha: <code>demo1234</code></p>
+            <p class="legenda">A paciente, os exames e os valores são inventados. Nada é enviado para servidor algum: a conferência acontece dentro do seu navegador e o acesso termina quando a página é recarregada.</p>
+          </aside>
+        </div>
+
+        <div class="painel" id="painel" hidden>
+          <div class="painel-topo">
+            <div>
+              <p class="painel-ola">Olá, <strong id="painel-nome">paciente</strong></p>
+              <p class="legenda" id="painel-info"></p>
+            </div>
+            <button class="botao botao-secundario" type="button" id="sair">Sair</button>
+          </div>
+
+          <div class="painel-grade">
+            <div class="painel-exames">
+              <h3>Seus exames</h3>
+              <p class="legenda">Abra um exame para ver os valores e a faixa de referência. Valores fora da faixa aparecem marcados.</p>
+              <div id="exames-lista"></div>
+            </div>
+            <div class="painel-grafico">
+              <h3>Glicemia em jejum nos últimos meses</h3>
+              <p class="legenda">A faixa colorida é a referência (70 a 99 mg/dL). Cada ponto é um exame.</p>
+              <svg class="grafico" id="grafico" viewBox="0 0 520 260" role="img" aria-labelledby="grafico-titulo"><title id="grafico-titulo">Gráfico da glicemia em jejum por mês</title></svg>
+              <table class="tabela-grafico" id="grafico-tabela"><caption class="visual-oculto">Valores do gráfico</caption></table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMO CHEGAR -->
+    <section class="secao secao-clara" id="como-chegar" aria-labelledby="chegar-titulo">
+      <div class="miolo">
+        <div class="secao-cabeca">
+          <h2 id="chegar-titulo">Como chegar</h2>
+          <p>A clínica fica na Alameda das Figueiras, 410, no bairro fictício Jardim Claro. Escolha como você vem e o mapa mostra o caminho.</p>
+        </div>
+
+        <div class="chegar-grade">
+          <div class="chegar-controles">
+            <div class="chegar-modos" role="group" aria-label="Modo de transporte">
+              <button type="button" class="modo" data-modo="carro" aria-pressed="true">De carro</button>
+              <button type="button" class="modo" data-modo="onibus" aria-pressed="false">De ônibus</button>
+              <button type="button" class="modo" data-modo="pe" aria-pressed="false">A pé</button>
+            </div>
+            <ol class="chegar-passos" id="chegar-passos" aria-live="polite"></ol>
+            <address class="endereco">
+              <strong>Clínica Alameda</strong><br>
+              Alameda das Figueiras, 410, Jardim Claro<br>
+              Cuiabá, MT (endereço fictício)<br>
+              Telefone: (65) 0000-0000 (fictício)
+            </address>
+          </div>
+
+          <figure class="mapa-figura">
+            <svg class="mapa" id="mapa" viewBox="0 0 640 440" role="img" aria-labelledby="mapa-titulo mapa-desc">
+              <title id="mapa-titulo">Mapa ilustrado de como chegar à Clínica Alameda</title>
+              <desc id="mapa-desc">Mapa simplificado do bairro com a Avenida Central, o Terminal Jardim Claro, a Praça dos Ipês e o Mercado Boa Mesa. A clínica fica na Alameda das Figueiras. As rotas de carro, ônibus e a pé são desenhadas sobre o mapa conforme a escolha.</desc>
+              <rect class="mapa-fundo" x="0" y="0" width="640" height="440" rx="16"/>
+              <g class="mapa-quadras" aria-hidden="true">
+                <rect x="24" y="24" width="150" height="110" rx="8"/>
+                <rect x="206" y="24" width="190" height="110" rx="8"/>
+                <rect x="428" y="24" width="188" height="110" rx="8"/>
+                <rect x="24" y="166" width="150" height="100" rx="8"/>
+                <rect x="428" y="166" width="188" height="100" rx="8"/>
+                <rect x="24" y="298" width="150" height="118" rx="8"/>
+                <rect x="206" y="298" width="190" height="118" rx="8"/>
+                <rect x="428" y="298" width="188" height="118" rx="8"/>
+              </g>
+              <g class="mapa-vias" aria-hidden="true">
+                <rect x="174" y="24" width="32" height="392"/>
+                <rect x="396" y="24" width="32" height="392"/>
+                <rect x="24" y="134" width="592" height="32"/>
+                <rect x="24" y="266" width="592" height="32"/>
+                <g class="mapa-faixas">
+                  <line x1="24" y1="150" x2="616" y2="150"/>
+                  <line x1="24" y1="282" x2="616" y2="282"/>
+                  <line x1="190" y1="24" x2="190" y2="416"/>
+                  <line x1="412" y1="24" x2="412" y2="416"/>
+                </g>
+              </g>
+              <g class="mapa-ruas" aria-hidden="true">
+                <text x="100" y="128" text-anchor="middle">Avenida Central</text>
+                <text x="522" y="128" text-anchor="middle">Avenida Central</text>
+                <text x="100" y="260" text-anchor="middle">Alameda das Figueiras</text>
+                <text x="522" y="260" text-anchor="middle">Alameda das Figueiras</text>
+                <text transform="translate(168 80) rotate(-90)" text-anchor="middle">Rua das Mangueiras</text>
+                <text transform="translate(390 80) rotate(-90)" text-anchor="middle">Rua dos Jatobás</text>
+              </g>
+              <g class="mapa-verde" aria-hidden="true">
+                <rect x="206" y="166" width="190" height="100" rx="8"/>
+                <circle cx="240" cy="196" r="12"/><circle cx="366" cy="236" r="12"/><circle cx="360" cy="192" r="10"/><circle cx="238" cy="240" r="10"/>
+              </g>
+              <g class="mapa-pontos">
+                <g class="mapa-ponto" transform="translate(99,79)"><rect x="-52" y="-16" width="104" height="32" rx="6"/><text y="5" text-anchor="middle">Terminal</text></g>
+                <g class="mapa-ponto" transform="translate(301,216)"><text text-anchor="middle">Praça dos Ipês</text></g>
+                <g class="mapa-ponto" transform="translate(522,357)"><rect x="-56" y="-16" width="112" height="32" rx="6"/><text y="5" text-anchor="middle">Mercado</text></g>
+                <g class="mapa-ponto" transform="translate(99,357)"><rect x="-56" y="-16" width="112" height="32" rx="6"/><text y="5" text-anchor="middle">Posto Sol</text></g>
+              </g>
+              <g class="mapa-rotas">
+                <polyline class="rota" data-rota="carro" points="151,79 190,79 190,282 301,282 301,292"/>
+                <polyline class="rota" data-rota="onibus" points="151,79 190,79 190,150 412,150 412,282 301,282 301,292"/>
+                <polyline class="rota" data-rota="pe" points="330,240 330,282 301,282 301,292"/>
+              </g>
+              <g class="mapa-clinica" transform="translate(301,300)">
+                <rect x="-50" y="0" width="100" height="36" rx="8"/>
+                <circle cx="0" cy="0" r="12"/>
+                <circle cx="0" cy="0" r="5"/>
+                <text y="24" text-anchor="middle">Clínica Alameda</text>
+              </g>
+            </svg>
+            <figcaption>Mapa ilustrado, sem escala. O ponto âmbar é a clínica.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMO ISTO FUNCIONA -->
+    <section class="secao" id="como-funciona" aria-labelledby="funciona-titulo">
+      <div class="miolo">
+        <div class="secao-cabeca">
+          <h2 id="funciona-titulo">Como isto funciona</h2>
+          <p>Este site é uma demonstração feita pela Mil e Uma Linhas! para mostrar o que um site de clínica pode fazer. Abaixo, a explicação em três níveis: para quem só quer usar, para quem quer entender e para quem programa.</p>
+        </div>
+
+        <div class="funciona-grade">
+          <article class="funciona-bloco">
+            <h3>Para quem usa</h3>
+            <p>Você encontra o médico pelo convênio, marca uma consulta escolhendo dia e horário, entra na área do paciente para ver exames e descobre como chegar. Tudo responde na hora, sem esperar carregar.</p>
+          </article>
+          <article class="funciona-bloco">
+            <h3>Por dentro, em linguagem comum</h3>
+            <p>A lista de médicos, os horários e os exames estão escritos dentro do próprio site, como uma agenda de papel. Quando você filtra ou agenda, o navegador do seu aparelho faz a conta e desenha a resposta. Nada é enviado para a internet. Se você marcar "guardar neste navegador", o agendamento fica salvo só no seu aparelho.</p>
+          </article>
+          <article class="funciona-bloco">
+            <h3>Em um site de verdade</h3>
+            <p>A clínica teria um sistema por trás: a lista de médicos viria do cadastro real, a agenda conferiria horários ocupados de fato e a área do paciente exigiria senha individual e sigilo. Esta demonstração mostra a cara e o comportamento; o motor é o próximo passo.</p>
+          </article>
+        </div>
+
+        <details class="tecnico">
+          <summary>Detalhes técnicos</summary>
+          <div class="tecnico-corpo">
+            <ul>
+              <li>HTML, CSS e JavaScript puros. Nenhum framework, nenhuma biblioteca, nenhum CDN, nenhuma fonte externa, nenhum analytics.</li>
+              <li>Fontes Young Serif e Figtree servidas localmente em <code>fonts/</code> (licença SIL OFL, arquivos de licença na pasta).</li>
+              <li><code>Content-Security-Policy</code> por meta tag: <code>default-src 'self'</code>, sem script inline, sem estilo inline, <code>connect-src 'none'</code>, <code>form-action 'none'</code>. Os formulários são interceptados em JavaScript e nunca enviam nada.</li>
+              <li>Dados fictícios em <code>js/dados.js</code> (médicos, convênios, exames, rotas). Comportamento em <code>js/app.js</code>: busca com filtro, calendário gerado por mês com horários derivados do turno de cada médico, login de demonstração com conferência local, gráfico SVG desenhado a partir dos dados e mapa com rotas alternadas por classe CSS.</li>
+              <li><code>localStorage</code> só na chave <code>clinica-alameda-agendamentos</code>, e só se o visitante marcar a caixa. O acesso da área do paciente fica em memória e some ao recarregar.</li>
+              <li>Acessibilidade: contraste AA verificado, foco visível, navegação por teclado em planta, calendário e horários, <code>aria-live</code> nos resultados, planta e mapa com título e descrição em SVG, tabela oculta com os valores do gráfico.</li>
+              <li>Testes com Playwright em <code>tests/site.cjs</code>: 1280x900, iPhone 13 e 320px, verificando erros de console, rolagem horizontal, textos cortados e as quatro funções.</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <div class="miolo rodape-grade">
+      <div>
+        <p class="rodape-marca">Clínica Alameda</p>
+        <p>Alameda das Figueiras, 410, Jardim Claro, Cuiabá, MT. Endereço, telefone, médicos e convênios são fictícios.</p>
+      </div>
+      <div>
+        <p>Site de demonstração da <a href="https://mileumalinhas.com.br">Mil e Uma Linhas!</a>, Cuiabá. Quer um site assim para a sua clínica? É só chamar.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/dados.js" defer></script>
+  <script src="js/app.js" defer></script>
+</body>
+</html>
