@@ -88,11 +88,9 @@
     });
   })();
 
-  /* ---------- planta (hero) ---------- */
+  /* ---------- planta (seção de especialidades) ---------- */
   var planta = $("#planta");
   if (planta) {
-    planta.classList.add("vai-acender");
-    window.requestAnimationFrame(function () { planta.classList.add("acendendo"); });
     $$("a.planta-sala", planta).forEach(function (sala) {
       sala.addEventListener("click", function () {
         var esp = sala.getAttribute("data-esp");

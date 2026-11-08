@@ -183,7 +183,20 @@ img, svg { max-width: 100%; height: auto; display: block; }
   .hero-grade { grid-template-columns: 5fr 6fr; gap: 64px; }
 }
 
-.planta-figura { margin: 0; }
+.hero-foto-caixa {
+  aspect-ratio: 4 / 3;
+  border-radius: var(--raio);
+  overflow: hidden;
+  background: #937968; /* média da foto: aparece enquanto ela carrega */
+}
+.hero-foto { display: block; width: 100%; height: 100%; object-fit: cover; }
+@media (max-width: 1023px) {
+  .hero { padding-top: 24px; }
+  .hero-foto-caixa { order: -1; } /* no celular a foto abre a página, o texto vem logo abaixo */
+}
+
+/* Planta interativa (na seção de especialidades) */
+.planta-figura { margin: 0 0 40px; max-width: 680px; }
 .planta-figura figcaption { font-size: 0.875rem; color: var(--ameixa-clara); margin-top: 12px; }
 .planta { width: 100%; height: auto; }
 .planta-parede { fill: var(--branco); stroke: var(--ameixa); stroke-width: 3; }
@@ -204,24 +217,12 @@ a.planta-sala:hover rect:first-child, a.planta-sala:focus-visible rect:first-chi
 a.planta-sala:focus-visible { box-shadow: none; }
 a.planta-sala.esta-ativa rect:first-child { fill: var(--ambar-fundo); stroke: var(--ambar); stroke-width: 2.5; }
 
-/* Abertura orquestrada: salas acendem em sequência */
+/* Abertura orquestrada: a foto do hero aparece com um fade */
 @media (prefers-reduced-motion: no-preference) {
-  .planta.vai-acender .planta-sala { opacity: 0; transform: scale(0.96); transform-origin: center; transform-box: fill-box; }
-  .planta.acendendo .planta-sala { animation: acender 420ms ease-out forwards; }
-  .planta.acendendo .planta-sala[data-ordem="1"] { animation-delay: 60ms; }
-  .planta.acendendo .planta-sala[data-ordem="2"] { animation-delay: 120ms; }
-  .planta.acendendo .planta-sala[data-ordem="3"] { animation-delay: 180ms; }
-  .planta.acendendo .planta-sala[data-ordem="4"] { animation-delay: 240ms; }
-  .planta.acendendo .planta-sala[data-ordem="5"] { animation-delay: 300ms; }
-  .planta.acendendo .planta-sala[data-ordem="6"] { animation-delay: 360ms; }
-  .planta.acendendo .planta-sala[data-ordem="7"] { animation-delay: 420ms; }
-  .planta.acendendo .planta-sala[data-ordem="8"] { animation-delay: 480ms; }
-  .planta.acendendo .planta-sala[data-ordem="9"] { animation-delay: 540ms; }
-  .planta.acendendo .planta-voce { animation: pulsar 900ms ease-in-out 700ms 2; transform-origin: center; transform-box: fill-box; }
+  .hero-foto { animation: foto-entra 900ms ease-out both; }
   .medicos li, .confirmacao { animation: surgir 150ms ease-out; }
 }
-@keyframes acender { to { opacity: 1; transform: none; } }
-@keyframes pulsar { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.5); } }
+@keyframes foto-entra { from { opacity: 0; } to { opacity: 1; } }
 @keyframes surgir { from { opacity: 0; } to { opacity: 1; } }
 
 /* Seções */

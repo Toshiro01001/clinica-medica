@@ -8,7 +8,7 @@ Estudo curto feito antes de qualquer linha de código. Tudo aqui é fictício: a
 
 Frase de posicionamento: **"Cuidado organizado, do agendamento ao resultado."**
 
-A ideia que guia tudo: uma clínica que acolhe sem ser melosa e organiza sem ser fria. A "alameda" é uma rua arborizada, calma, onde se sabe exatamente onde fica cada coisa. Por isso o elemento central do site é a **planta da clínica**: cada sala é uma especialidade, e o visitante entende a casa antes de entrar.
+A ideia que guia tudo: uma clínica que acolhe sem ser melosa e organiza sem ser fria. A "alameda" é uma rua arborizada, calma, onde se sabe exatamente onde fica cada coisa. Por isso o elemento central do site é a **planta da clínica**: cada sala é uma especialidade, e o visitante entende a casa antes de entrar. A planta fica na seção "Especialidades e médicos", logo acima da busca; a abertura é uma foto.
 
 ## Paleta
 
@@ -62,15 +62,27 @@ Regra de peso: títulos nunca são negrito (a Young Serif só tem um peso, e iss
 
 ## Imagem forte
 
-A imagem do hero é uma **planta baixa da clínica em SVG**, desenhada à mão em código. Cada sala tem o nome da especialidade; a recepção tem um ponto âmbar ("você está aqui"). As salas são botões: clicar em uma leva à busca já filtrada por aquela especialidade. A planta também reaparece pequena no rodapé do mapa de como chegar, fechando o ciclo.
+O hero é uma **foto gerada por IA (Canva)**, ilustrativa: a recepção de uma clínica, com uma parede cor de ameixa, um balcão de madeira clara com dois monitores, poltronas lilás com pés de madeira, plantas, um quadro abstrato em tons de lilás, um pendente âmbar aceso e uma janela grande com árvores ("alameda") do lado de fora. As cores da foto são as da paleta (Ameixa, Lavanda, Âmbar), então ela parece parte da marca. Não há pessoas.
 
-Nada de foto de banco de imagem, nada de pessoa, nada de estetoscópio. A organização é a imagem.
+O contêiner tem proporção fixa de 4:3 e cantos de 12 px, como os cartões do site, sem sombra. Enquanto a foto carrega, ele mostra a cor média dela.
+
+A **planta baixa em SVG** (cada sala é uma especialidade; a recepção tem um ponto âmbar "você está aqui"; clicar em uma sala leva à busca já filtrada) deixou o hero e passou para o topo da seção "Especialidades e médicos", onde continua funcionando do mesmo jeito. Ela reaparece pequena no mapa de como chegar. A animação em que as salas acendiam em sequência foi retirada, porque a planta não fica mais na primeira tela.
+
+Nada de foto de banco de imagem, nada de pessoa, nada de estetoscópio.
+
+### Foto do hero
+
+- **Arquivo**: `img/hero.webp`, 1440 x 1080 px, proporção 4:3.
+- **Origem**: gerada por IA no Canva. O README e este estudo avisam que é ilustrativa.
+- **Prompt resumido**: "Recepção de uma clínica médica moderna e acolhedora: parede ao fundo na cor ameixa, balcão de recepção de carvalho claro com fita de luz âmbar na base, dois monitores, poltronas lilás-acinzentado com pés de madeira, vasos com plantas, quadro abstrato em tons de lilás e bege, pendente de vidro âmbar aceso, grande janela com árvores lá fora, piso claro com luz de fim de tarde. Estilo editorial de site premium, sem texto, sem pessoas, proporção 4:3."
+- **Texto alternativo**: descreve a recepção, o balcão, as poltronas, as plantas, o quadro, o pendente e a janela.
+- **Texto do hero**: fica ao lado da foto no computador e abaixo dela no celular, nunca por cima. O contraste do texto é o da página (Ameixa e Tinta sobre Névoa) e não depende da foto.
 
 ## Movimento
 
-- Um só momento orquestrado na abertura: as salas da planta "acendem" em sequência (opacidade e leve escala, 60ms de intervalo entre elas), e o ponto âmbar da recepção pulsa duas vezes e para.
+- Um só momento orquestrado na abertura: a foto do hero aparece com um fade de 900ms.
 - Respostas a ações: sala em foco/hover ganha borda Ameixa; horário selecionado vira âmbar; resultados de busca aparecem com fade de 150ms.
-- Com `prefers-reduced-motion: reduce`, nenhuma animação roda: a planta já aparece pronta e as transições viram instantâneas.
+- Com `prefers-reduced-motion: reduce`, nenhuma animação roda: a foto já aparece pronta e as transições viram instantâneas.
 
 ## O que evitamos de propósito
 

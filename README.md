@@ -6,7 +6,7 @@ Site publicado: https://toshiro01001.github.io/clinica-medica/
 
 **Aviso importante: tudo aqui é fictício.** A Clínica Alameda não existe. Os médicos, os convênios, a paciente, os exames, o endereço e o telefone foram inventados por mim para a demonstração. Nenhuma consulta é marcada de verdade e nenhum dado sai do seu navegador.
 
-![Abertura do site no computador: título, botões e a planta da clínica com os consultórios](docs/capa-desktop.webp)
+![Abertura do site no computador: título, botões e a foto da recepção da clínica](docs/capa-desktop.webp)
 
 ## O que o site faz (para quem não é da área)
 
@@ -16,7 +16,7 @@ Tudo isso acontece na hora, sem carregar outra página, no celular ou no computa
 
 ## Como usar, passo a passo
 
-1. Abra o site. No alto, toque em um consultório da planta (ou use o menu "Especialidades").
+1. Abra o site. Em "Especialidades e médicos" (menu ou botão "Ver médicos e convênios"), toque em um consultório da planta.
 2. Na busca, escolha o seu convênio e, se quiser, digite o nome de um médico. A lista se ajusta sozinha.
 3. Toque em "Agendar consulta". O site leva você para o agendamento com o médico já escolhido.
 4. Escolha o dia no calendário (os dias em que o médico atende aparecem em branco) e depois um horário livre.
@@ -38,10 +38,11 @@ Tudo isso acontece na hora, sem carregar outra página, no celular ou no computa
 O estudo completo está em [`docs/identidade.md`](docs/identidade.md).
 
 - **Nome e frase:** Clínica Alameda. "Cuidado organizado, do agendamento ao resultado."
-- **Ideia central:** a planta da clínica. Cada consultório é uma especialidade e é clicável. A organização é a imagem.
+- **Ideia central:** a planta da clínica. Cada consultório é uma especialidade e é clicável (fica na seção "Especialidades e médicos"). A organização é a ideia; a imagem da abertura é uma foto.
+- **Imagem forte:** uma foto da recepção da clínica, com parede cor de ameixa, balcão de madeira clara, poltronas lilás e um pendente âmbar (`img/hero.webp`). **A foto foi gerada por IA no Canva e é só ilustrativa**: a clínica mostrada não existe e não há pessoas nela.
 - **Paleta:** Névoa `#F4F1F5` (fundo), Branco `#FFFFFF` (superfícies), Ameixa `#3B2A48` (identidade, títulos, cabeçalho), Tinta `#27212E` (texto), Lavanda `#DCD0E6` (apoio) e Âmbar `#E2A233` (destaque, um só lugar por tela). Fugi de propósito do verde-hospital e do azul-clínico: o lilás acinzentado é calmo e limpo, a ameixa é séria e acolhedora, o âmbar é a luz acesa da sala.
 - **Fontes:** Young Serif nos títulos (serifa redonda, de placa de latão, sem negrito porque só tem um peso) e Figtree no texto e nos botões (humanista, ótima em tela pequena). As duas são locais, em `fonts/`, com licença SIL OFL.
-- **Movimento:** só um momento orquestrado na abertura (as salas da planta acendem em sequência) e respostas às ações. Com "reduzir movimento" ligado no aparelho, nada se mexe.
+- **Movimento:** só um momento orquestrado na abertura (a foto aparece com um fade) e respostas às ações. Com "reduzir movimento" ligado no aparelho, nada se mexe.
 
 ## Como funciona por dentro (em linguagem comum)
 
@@ -59,7 +60,7 @@ Pense em uma agenda de papel muito bem organizada. A lista de médicos, os conv�
 - Acessibilidade: contraste AA verificado para todas as combinações da paleta, foco visível, navegação por teclado na planta, no calendário e nos horários, `aria-live` nos resultados da busca e nas rotas, SVGs com `title` e `desc`, tabela oculta com os valores do gráfico para leitores de tela, `lang="pt-BR"`.
 - Celular primeiro: uma coluna a partir de 320px, duas a partir de 720px, grade completa a partir de 1024px.
 - Fontes: `fonts/young-serif-latin-400-normal.woff2` e `fonts/figtree-latin-wght-normal.woff2` (variável, 300 a 900), extraídas dos pacotes `@fontsource/young-serif` e `@fontsource-variable/figtree`. Licenças na mesma pasta.
-- Arquivos para publicação: `404.html` (com caminhos absolutos `/clinica-medica/`), `robots.txt`, `sitemap.xml`, `favicon.svg` e o arquivo de verificação do Google Search Console.
+- Arquivos para publicação: `404.html` (com caminhos absolutos `/clinica-medica/`), `robots.txt`, `sitemap.xml`, `favicon.svg`, a foto da abertura em `img/hero.webp` e o arquivo de verificação do Google Search Console.
 
 ### Estrutura
 
