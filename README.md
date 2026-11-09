@@ -42,7 +42,22 @@ O estudo completo está em [`docs/identidade.md`](docs/identidade.md).
 - **Imagem forte:** uma foto da recepção da clínica, com parede cor de ameixa, balcão de madeira clara, poltronas lilás e um pendente âmbar (`img/hero.webp`). **A foto foi gerada por IA no Canva e é só ilustrativa**: a clínica mostrada não existe e não há pessoas nela.
 - **Paleta:** Névoa `#F4F1F5` (fundo), Branco `#FFFFFF` (superfícies), Ameixa `#3B2A48` (identidade, títulos, cabeçalho), Tinta `#27212E` (texto), Lavanda `#DCD0E6` (apoio) e Âmbar `#E2A233` (destaque, um só lugar por tela). Fugi de propósito do verde-hospital e do azul-clínico: o lilás acinzentado é calmo e limpo, a ameixa é séria e acolhedora, o âmbar é a luz acesa da sala.
 - **Fontes:** Young Serif nos títulos (serifa redonda, de placa de latão, sem negrito porque só tem um peso) e Figtree no texto e nos botões (humanista, ótima em tela pequena). As duas são locais, em `fonts/`, com licença SIL OFL.
-- **Movimento:** só um momento orquestrado na abertura (a foto aparece com um fade) e respostas às ações. Com "reduzir movimento" ligado no aparelho, nada se mexe.
+- **Movimento:** a abertura é um só momento orquestrado (o título entra do desfoque e a foto aparece com um fade); ao rolar, cartões e passos sobem de leve, e o cabeçalho vira um vidro Ameixa. Com "reduzir movimento" ligado no aparelho, nada se mexe.
+- **Design systems (leva final):** mistura do oemsz26 (claro: cartões com anel, linhas de lista, pílulas, faixa de dias, gráfico com tooltip, anel de progresso) com o vesper (escuro: cabeçalho de vidro, linhas de consentimento com interruptor, botões ghost, rodapé em colunas, entrada com desfoque). A paleta não mudou. Detalhes em [`docs/identidade.md`](docs/identidade.md).
+
+### Fotos do site
+
+**Todas as fotos são geradas por IA no Canva e são ilustrativas**: a clínica não existe, os ambientes não existem e ninguém aparece de rosto. Os arquivos abaixo são as imagens finais, convertidas para webp no tamanho certo.
+
+| Arquivo | Proporção | Onde aparece |
+|---|---|---|
+| `img/hero.webp` | 4:3 (1440x1080) | Abertura (recepção) |
+| `img/consultorio-maca.webp` | 4:3 (1456x1088) | Especialidades, ao lado da planta |
+| `img/medica-janela.webp` | 3:4 (1088x1456) | Especialidades, ao lado do título (só em telas largas) |
+| `img/sala-espera-poltronas.webp` | 4:5 (1165x1456) | Agendar, coluna ao lado do formulário |
+| `img/corredor-consultorios.webp` | 3:2 (1456x970) | Área do paciente, acima do acesso de demonstração |
+| `img/bancada-exames.webp` | 1:1 (1024x1024) | Área do paciente, cabeçalho de "Seus exames" |
+| `img/fachada-alameda.webp` | 16:9 (1456x816) | Como chegar, acima do endereço |
 
 ## Como funciona por dentro (em linguagem comum)
 
@@ -97,7 +112,7 @@ node tests/site.cjs
 
 Para salvar capturas durante o teste: `CAPTURAS=./capturas node tests/site.cjs`.
 
-Resultado da última rodada (08/11/2026): tudo certo nas três telas, sem erro de console, sem rolagem horizontal, sem texto cortado.
+Resultado da última rodada (08/11/2026, depois da leva final de design): tudo certo nas três telas, sem erro de console, sem rolagem horizontal, sem texto cortado.
 
 ## Segurança
 

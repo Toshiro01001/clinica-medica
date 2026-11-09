@@ -88,6 +88,73 @@
     });
   })();
 
+  /* ---------- cabeçalho de vidro ao rolar ---------- */
+  (function topoVidro() {
+    var topo = $(".topo");
+    if (!topo) { return; }
+    var agendado = false;
+    function aplicar() {
+      agendado = false;
+      topo.classList.toggle("esta-rolado", (window.scrollY || window.pageYOffset) > 20);
+    }
+    window.addEventListener("scroll", function () {
+      if (!agendado) { agendado = true; window.requestAnimationFrame(aplicar); }
+    }, { passive: true });
+    aplicar();
+  })();
+
+  /* ---------- revelação ao rolar (só com movimento permitido) ---------- */
+  var reduzMovimento = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var observador = null;
+  if (!reduzMovimento && "IntersectionObserver" in window) {
+    observador = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("revelado"); observador.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+  }
+  function revelar(nos) {
+    if (!observador) { return; }
+    nos.forEach(function (n) {
+      if (n.classList.contains("revela")) { return; }
+      n.classList.add("revela");
+      observador.observe(n);
+    });
+  }
+  revelar($$(".funciona-bloco, .passo"));
+
+  /* ---------- orbe de luz atrás da faixa de agendamento (canvas 2D, desenhado uma vez) ---------- */
+  (function orbe() {
+    var canvas = $("#agendar-orbe");
+    if (!canvas || reduzMovimento) { if (canvas) { canvas.hidden = true; } return; }
+    var ctx = canvas.getContext && canvas.getContext("2d");
+    if (!ctx) { return; }
+    var larguraAnterior = 0;
+    function desenhar() {
+      var secao = canvas.parentNode;
+      var w = secao.clientWidth, h = secao.clientHeight;
+      if (!w || !h || w === larguraAnterior) { return; }
+      larguraAnterior = w;
+      var escala = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.round(w * escala); canvas.height = Math.round(h * escala);
+      ctx.setTransform(escala, 0, 0, escala, 0, 0);
+      ctx.clearRect(0, 0, w, h);
+      var cx = w * 0.88, cy = h * 0.12, raio = Math.max(w, h) * 0.55;
+      var grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, raio);
+      grad.addColorStop(0, "rgba(220, 208, 230, 0.08)");
+      grad.addColorStop(0.5, "rgba(220, 208, 230, 0.03)");
+      grad.addColorStop(1, "rgba(220, 208, 230, 0)");
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, w, h);
+    }
+    desenhar();
+    var espera = null;
+    window.addEventListener("resize", function () {
+      clearTimeout(espera);
+      espera = setTimeout(desenhar, 200);
+    });
+  })();
+
   /* ---------- planta (seção de especialidades) ---------- */
   var planta = $("#planta");
   if (planta) {
@@ -161,24 +228,30 @@
       ? "1 médico encontrado."
       : lista.length + " médicos encontrados" + (lista.length === D.medicos.length ? ", toda a equipe." : ".");
     lista.forEach(function (m) {
-      var iniciais = m.nome.replace(/^Dr[a]?\.\s*/, "").split(" ").map(function (p) { return p[0]; }).slice(0, 2).join("");
+      /* Linha de lista (oemsz26): tile com a inicial da especialidade, nome, legenda e pílulas no fim */
+      var inicialEsp = nomeEsp(m.esp).charAt(0).toUpperCase();
       var botao = el("button", { type: "button", class: "botao botao-secundario", text: "Agendar consulta" });
       botao.addEventListener("click", function () { irParaAgenda(m); });
+      var pilulas = m.convenios.map(function (c) {
+        return el("li", { class: c === conv ? "esta-marcado" : "", text: nomeConv(c) });
+      });
+      if (m.dias.indexOf(6) >= 0) {
+        pilulas.push(el("li", { class: "pilula esta-sabado", text: "Atende sábado" }));
+      }
       buscaLista.appendChild(el("li", { class: "medico" }, [
         el("div", { class: "medico-topo" }, [
-          el("span", { class: "medico-inicial", "aria-hidden": "true", text: iniciais }),
+          el("span", { class: "medico-inicial", "aria-hidden": "true", text: inicialEsp }),
           el("div", null, [
             el("h3", { text: m.nome }),
-            el("p", { class: "medico-esp", text: nomeEsp(m.esp) + " · " + m.registro })
+            el("p", { class: "medico-esp", text: nomeEsp(m.esp) + " · " + m.registro }),
+            el("p", { class: "medico-dias", text: "Atende " + diasTexto(m.dias) + ", das " + m.turno[0] + "h às " + m.turno[1] + "h." })
           ])
         ]),
-        el("ul", { class: "medico-lista", "aria-label": "Convênios aceitos" }, m.convenios.map(function (c) {
-          return el("li", { class: c === conv ? "esta-marcado" : "", text: nomeConv(c) });
-        })),
-        el("p", { class: "medico-dias", text: "Atende " + diasTexto(m.dias) + ", das " + m.turno[0] + "h às " + m.turno[1] + "h." }),
+        el("ul", { class: "medico-lista", "aria-label": "Convênios aceitos" }, pilulas),
         botao
       ]));
     });
+    revelar($$("li", buscaLista));
   }
 
   /* ---------- agendamento ---------- */
@@ -505,6 +578,7 @@
         corpo
       ]));
     });
+    resumirExames();
     desenharGrafico();
     $("#paciente-entrada").hidden = true;
     $("#painel").hidden = false;
@@ -512,31 +586,102 @@
     $("#painel").focus();
   }
 
+  /* Anel de progresso (oemsz26): quantos valores de exame estão dentro da faixa de referência */
+  function resumirExames() {
+    var arco = $("#anel-arco");
+    var valor = $("#anel-valor");
+    var texto = $("#exames-resumo-texto");
+    if (!arco || !valor || !texto) { return; }
+    var total = 0, dentro = 0, pendentes = 0;
+    D.exames.forEach(function (ex) {
+      if (ex.estado === "pendente") { pendentes++; }
+      ex.itens.forEach(function (it) {
+        total++;
+        if (it.valor >= it.min && it.valor <= it.max) { dentro++; }
+      });
+    });
+    var comprimento = 2 * Math.PI * 42;
+    var fracao = total ? dentro / total : 0;
+    arco.setAttribute("stroke-dasharray", "0 " + comprimento.toFixed(1));
+    window.requestAnimationFrame(function () {
+      arco.setAttribute("stroke-dasharray", (comprimento * fracao).toFixed(1) + " " + comprimento.toFixed(1));
+    });
+    valor.textContent = dentro + "/" + total;
+    limpar(texto);
+    texto.appendChild(el("strong", { text: dentro + " de " + total + " valores dentro da faixa" }));
+    texto.appendChild(document.createTextNode(" de referência nos exames disponíveis" + (pendentes ? "; " + pendentes + (pendentes === 1 ? " exame ainda em análise." : " exames ainda em análise.") : ".")));
+  }
+
+  /* Curva suave (Catmull-Rom convertida em Bézier) para a linha do gráfico */
+  function caminhoSuave(pts) {
+    if (pts.length < 2) { return ""; }
+    var d = "M" + pts[0][0] + "," + pts[0][1];
+    for (var i = 0; i < pts.length - 1; i++) {
+      var p0 = pts[i - 1] || pts[i], p1 = pts[i], p2 = pts[i + 1], p3 = pts[i + 2] || p2;
+      var c1x = p1[0] + (p2[0] - p0[0]) / 6, c1y = p1[1] + (p2[1] - p0[1]) / 6;
+      var c2x = p2[0] - (p3[0] - p1[0]) / 6, c2y = p2[1] - (p3[1] - p1[1]) / 6;
+      d += " C" + c1x.toFixed(1) + "," + c1y.toFixed(1) + " " + c2x.toFixed(1) + "," + c2y.toFixed(1) + " " + p2[0] + "," + p2[1];
+    }
+    return d;
+  }
+
   function desenharGrafico() {
     var svg = $("#grafico");
     var g = D.glicemia;
     $$("*:not(title)", svg).forEach(function (n) { if (n.parentNode === svg) { svg.removeChild(n); } });
-    var L = 520, A = 260, mx = 40, my = 24, mb = 40;
+    var L = 520, A = 260, mx = 40, my = 32, mb = 40;
     var larg = L - mx - 16, alt = A - my - mb;
     var valores = g.pontos.map(function (p) { return p.valor; });
-    var vMin = Math.min(g.min, Math.min.apply(null, valores)) - 10;
-    var vMax = Math.max(g.max, Math.max.apply(null, valores)) + 10;
-    function y(v) { return my + alt - ((v - vMin) / (vMax - vMin)) * alt; }
-    function x(i) { return mx + (larg / (g.pontos.length - 1)) * i; }
+    /* Escala apertada nos valores medidos para a curva respirar; a faixa de referência é recortada quando sai da escala */
+    var vMin = Math.min(g.max, Math.min.apply(null, valores)) - 12;
+    var vMax = Math.max(g.max, Math.max.apply(null, valores)) + 8;
+    function y(v) { return Math.round((my + alt - ((v - vMin) / (vMax - vMin)) * alt) * 10) / 10; }
+    function x(i) { return Math.round((mx + (larg / (g.pontos.length - 1)) * i) * 10) / 10; }
 
-    svg.appendChild(svgEl("rect", { class: "grafico-faixa", x: mx, y: y(g.max), width: larg, height: y(g.min) - y(g.max), rx: 4 }));
+    var faixaBaixo = Math.max(g.min, vMin);
+    svg.appendChild(svgEl("rect", { class: "grafico-faixa", x: mx, y: y(g.max), width: larg, height: y(faixaBaixo) - y(g.max), rx: 4 }));
     [g.min, g.max].forEach(function (v) {
+      if (v < vMin || v > vMax) { return; }
       svg.appendChild(svgEl("line", { class: "grafico-eixo", x1: mx, x2: mx + larg, y1: y(v), y2: y(v) }));
       svg.appendChild(svgEl("text", { class: "grafico-texto", x: mx - 8, y: y(v) + 4, "text-anchor": "end", text: String(v) }));
     });
-    var pontos = g.pontos.map(function (p, i) { return x(i) + "," + y(p.valor); }).join(" ");
-    svg.appendChild(svgEl("polyline", { class: "grafico-linha", points: pontos }));
+    svg.appendChild(svgEl("text", { class: "grafico-texto", x: mx - 8, y: y(vMin) + 4, "text-anchor": "end", text: String(vMin) }));
+    var pontos = g.pontos.map(function (p, i) { return [x(i), y(p.valor)]; });
+    svg.appendChild(svgEl("path", { class: "grafico-linha", d: caminhoSuave(pontos) }));
+
+    /* Tooltip Tinta (oemsz26): aparece ao passar o mouse ou focar um ponto */
+    var dica = svgEl("g", { class: "grafico-dica", "aria-hidden": "true" });
+    var dicaFundo = svgEl("rect", { x: 0, y: 0, width: 96, height: 40 });
+    var dicaValor = svgEl("text", { x: 48, y: 17, text: "" });
+    var dicaMes = svgEl("text", { class: "grafico-dica-mes", x: 48, y: 32, text: "" });
+    dica.appendChild(dicaFundo); dica.appendChild(dicaValor); dica.appendChild(dicaMes);
+
+    function mostrarDica(p, i) {
+      var px = x(i), py = y(p.valor);
+      var esq = Math.min(Math.max(px - 48, mx), mx + larg - 96);
+      var topo = py - 52 < 0 ? py + 12 : py - 52;
+      dica.setAttribute("transform", "translate(" + esq + " " + topo + ")");
+      dicaValor.textContent = p.valor + " mg/dL";
+      dicaMes.textContent = p.rotulo + (p.valor < g.min || p.valor > g.max ? " · fora da faixa" : " · dentro da faixa");
+      dica.classList.add("esta-visivel");
+    }
+    function esconderDica() { dica.classList.remove("esta-visivel"); }
+
     g.pontos.forEach(function (p, i) {
       var fora = p.valor < g.min || p.valor > g.max;
-      svg.appendChild(svgEl("circle", { class: "grafico-ponto" + (fora ? " fora" : ""), cx: x(i), cy: y(p.valor), r: 6 }));
-      svg.appendChild(svgEl("text", { class: "grafico-valor", x: x(i), y: y(p.valor) - 12, text: String(p.valor) }));
+      var ponto = svgEl("circle", {
+        class: "grafico-ponto" + (fora ? " fora" : ""), cx: x(i), cy: y(p.valor), r: 4,
+        tabindex: "0", role: "img", "aria-label": p.rotulo + ": " + p.valor + " mg/dL" + (fora ? ", fora da faixa" : "")
+      });
+      ponto.addEventListener("mouseenter", function () { mostrarDica(p, i); });
+      ponto.addEventListener("mouseleave", esconderDica);
+      ponto.addEventListener("focus", function () { mostrarDica(p, i); });
+      ponto.addEventListener("blur", esconderDica);
+      ponto.addEventListener("click", function () { mostrarDica(p, i); });
+      svg.appendChild(ponto);
       svg.appendChild(svgEl("text", { class: "grafico-texto", x: x(i), y: A - 12, "text-anchor": "middle", text: p.rotulo }));
     });
+    svg.appendChild(dica);
 
     var tabela = $("#grafico-tabela");
     $$("tr", tabela).forEach(function (tr) { tr.remove(); });

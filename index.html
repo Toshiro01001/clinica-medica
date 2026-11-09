@@ -60,13 +60,16 @@
             <a class="botao botao-secundario" href="#especialidades">Ver médicos e convênios</a>
           </div>
           <dl class="hero-fatos">
-            <div><dt>Horário</dt><dd>Segunda a sexta, 7h às 19h. Sábado, 7h às 12h.</dd></div>
-            <div><dt>Convênios</dt><dd>Cinco convênios fictícios e atendimento particular.</dd></div>
+            <div><dt>Segunda a sexta; sábado até 12h</dt><dd>7h às 19h</dd></div>
+            <div><dt>Convênios e atendimento particular</dt><dd>5 convênios</dd></div>
+            <div><dt>No mesmo endereço</dt><dd>8 especialidades</dd></div>
           </dl>
         </div>
 
         <div class="hero-foto-caixa">
           <img class="hero-foto" src="img/hero.webp" width="1440" height="1080" alt="Recepção de uma clínica com parede cor de ameixa, balcão de madeira clara com dois monitores, poltronas lilás com pés de madeira, plantas, um quadro abstrato, um pendente âmbar aceso e uma janela grande com árvores do lado de fora." fetchpriority="high">
+          <span class="hero-veu" aria-hidden="true"></span>
+          <p class="hero-legenda">Recepção · Alameda das Figueiras, 410</p>
         </div>
       </div>
     </section>
@@ -74,11 +77,17 @@
     <!-- BUSCA -->
     <section class="secao" id="especialidades" aria-labelledby="busca-titulo">
       <div class="miolo">
-        <div class="secao-cabeca">
-          <h2 id="busca-titulo">Especialidades e médicos</h2>
-          <p>Esta é a lista de quem atende aqui. Digite um nome ou escolha a especialidade e o seu convênio para ver só quem serve para você.</p>
+        <div class="secao-cabeca secao-cabeca-retrato">
+          <div>
+            <h2 id="busca-titulo">Especialidades e médicos</h2>
+            <p>Esta é a lista de quem atende aqui. Digite um nome ou escolha a especialidade e o seu convênio para ver só quem serve para você.</p>
+          </div>
+          <figure class="especialidades-retrato">
+            <img src="img/medica-janela.webp" width="1088" height="1456" alt="Médica adulta de jaleco branco vista de costas, olhando pela janela de um consultório claro, com o rosto fora do quadro." loading="lazy" decoding="async">
+          </figure>
         </div>
 
+        <div class="planta-grade">
         <figure class="planta-figura">
           <svg class="planta" viewBox="0 0 640 440" role="group" aria-labelledby="planta-titulo" aria-describedby="planta-desc" id="planta">
             <title id="planta-titulo">Planta da Clínica Alameda</title>
@@ -116,6 +125,11 @@
           </svg>
           <figcaption>Planta da clínica. Toque em um consultório para ver os médicos daquela especialidade.</figcaption>
         </figure>
+        <figure class="consultorio-foto">
+          <img src="img/consultorio-maca.webp" width="1456" height="1088" alt="Consultório claro com maca estofada em lilás, mesa de madeira clara com luminária âmbar acesa, cadeira, planta e janela com árvores." loading="lazy" decoding="async">
+          <figcaption>Um dos oito consultórios. Todos têm janela para a alameda.</figcaption>
+        </figure>
+        </div>
 
         <form class="busca" id="busca" role="search" aria-label="Buscar médicos">
           <div class="busca-linha">
@@ -145,12 +159,20 @@
 
     <!-- AGENDAMENTO -->
     <section class="secao secao-escura" id="agendar" aria-labelledby="agendar-titulo">
+      <canvas class="secao-orbe" id="agendar-orbe" aria-hidden="true"></canvas>
       <div class="miolo">
         <div class="secao-cabeca">
           <h2 id="agendar-titulo">Agendar uma consulta</h2>
           <p>Em quatro passos você escolhe especialidade, médico, dia e horário. É uma simulação: nenhum pedido sai do seu navegador e nenhuma consulta é marcada de verdade.</p>
         </div>
 
+        <div class="agenda-grade">
+        <aside class="agenda-foto">
+          <figure>
+            <img src="img/sala-espera-poltronas.webp" width="1165" height="1456" alt="Sala de espera silenciosa com poltronas lilás de pés de madeira, mesa lateral com revistas fechadas, planta alta e janela com luz de tarde." loading="lazy" decoding="async">
+            <figcaption>Sala de espera. Chegue dez minutos antes; a recepção fica logo na entrada.</figcaption>
+          </figure>
+        </aside>
         <form class="agenda" id="agenda" novalidate>
           <ol class="passos">
             <li class="passo" id="passo-1">
@@ -206,7 +228,8 @@
                 </label>
               </div>
               <label class="marcar">
-                <input type="checkbox" id="ag-guardar" name="guardar">
+                <input type="checkbox" id="ag-guardar" name="guardar" role="switch">
+                <span class="interruptor" aria-hidden="true"></span>
                 <span>Guardar este agendamento neste navegador (fica só no seu aparelho; você pode apagar quando quiser).</span>
               </label>
               <p class="erro" id="ag-erro" role="alert" hidden></p>
@@ -214,6 +237,7 @@
             </li>
           </ol>
         </form>
+        </div>
 
         <div class="confirmacao" id="ag-resumo" role="status" aria-live="polite" hidden></div>
 
@@ -246,16 +270,21 @@
             <p class="erro" id="login-erro" role="alert" hidden></p>
             <button class="botao botao-principal" type="submit">Entrar</button>
           </form>
-          <aside class="dica" aria-label="Dados de acesso de demonstração">
-            <h3>Acesso de demonstração</h3>
-            <p>Usuário: <code>paciente.demo</code><br>Senha: <code>demo1234</code></p>
-            <p class="legenda">A paciente, os exames e os valores são inventados. Nada é enviado para servidor algum: a conferência acontece dentro do seu navegador e o acesso termina quando a página é recarregada.</p>
-          </aside>
+          <div class="paciente-lado">
+            <figure class="paciente-foto">
+              <img src="img/corredor-consultorios.webp" width="1456" height="970" alt="Corredor de clínica com portas de madeira clara e placas em branco, piso claro, luz âmbar de arandelas e uma janela ao fundo." loading="lazy" decoding="async">
+            </figure>
+            <aside class="dica" aria-label="Dados de acesso de demonstração">
+              <h3>Acesso de demonstração</h3>
+              <p>Usuário: <code>paciente.demo</code><br>Senha: <code>demo1234</code></p>
+              <p class="legenda">A paciente, os exames e os valores são inventados. Nada é enviado para servidor algum: a conferência acontece dentro do seu navegador e o acesso termina quando a página é recarregada.</p>
+            </aside>
+          </div>
         </div>
 
         <div class="painel" id="painel" hidden>
           <div class="painel-topo">
-            <div>
+            <div class="painel-fato">
               <p class="painel-ola">Olá, <strong id="painel-nome">paciente</strong></p>
               <p class="legenda" id="painel-info"></p>
             </div>
@@ -264,8 +293,32 @@
 
           <div class="painel-grade">
             <div class="painel-exames">
-              <h3>Seus exames</h3>
-              <p class="legenda">Abra um exame para ver os valores e a faixa de referência. Valores fora da faixa aparecem marcados.</p>
+              <div class="painel-exames-cabeca">
+                <div>
+                  <h3>Seus exames</h3>
+                  <p class="legenda">Abra um exame para ver os valores e a faixa de referência. Valores fora da faixa aparecem marcados.</p>
+                </div>
+                <figure class="exames-foto">
+                  <img src="img/bancada-exames.webp" width="1024" height="1024" alt="Bancada de laboratório clara com tubos de ensaio em suporte, uma mão adulta com luva lilás segurando um tubo e um caderno fechado." loading="lazy" decoding="async">
+                </figure>
+              </div>
+              <div class="exames-resumo">
+                <div class="anel" aria-hidden="true">
+                  <svg class="anel-svg" viewBox="0 0 96 96" focusable="false">
+                    <defs>
+                      <linearGradient id="anel-grad" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0" stop-color="#DCD0E6"/>
+                        <stop offset="0.55" stop-color="#5E4D6B"/>
+                        <stop offset="1" stop-color="#E2A233"/>
+                      </linearGradient>
+                    </defs>
+                    <circle class="anel-trilho" cx="48" cy="48" r="42"/>
+                    <circle class="anel-arco" id="anel-arco" cx="48" cy="48" r="42" stroke-dasharray="0 264" transform="rotate(-90 48 48)"/>
+                  </svg>
+                  <p class="anel-valor" id="anel-valor">0/0</p>
+                </div>
+                <p class="exames-resumo-texto" id="exames-resumo-texto">Carregando o resumo dos exames.</p>
+              </div>
               <div id="exames-lista"></div>
             </div>
             <div class="painel-grafico">
@@ -295,6 +348,10 @@
               <button type="button" class="modo" data-modo="pe" aria-pressed="false">A pé</button>
             </div>
             <ol class="chegar-passos" id="chegar-passos" aria-live="polite"></ol>
+            <figure class="chegar-foto">
+              <img src="img/fachada-alameda.webp" width="1456" height="816" alt="Fachada de clínica térrea com porta de vidro, parede ameixa, calçada arborizada e luz de fim de tarde entre as árvores da alameda." loading="lazy" decoding="async">
+              <figcaption>A fachada, vista da calçada da alameda.</figcaption>
+            </figure>
             <address class="endereco">
               <strong>Clínica Alameda</strong><br>
               Alameda das Figueiras, 410, Jardim Claro<br>
@@ -410,11 +467,23 @@
   <footer class="rodape">
     <div class="miolo rodape-grade">
       <div>
+        <p class="rodape-titulo">Clínica</p>
         <p class="rodape-marca">Clínica Alameda</p>
-        <p>Alameda das Figueiras, 410, Jardim Claro, Cuiabá, MT. Endereço, telefone, médicos e convênios são fictícios.</p>
+        <p>Alameda das Figueiras, 410, Jardim Claro, Cuiabá, MT.<br>Telefone (65) 0000-0000. Segunda a sexta, 7h às 19h; sábado, 7h às 12h.</p>
       </div>
+      <nav aria-label="Atalhos do rodapé">
+        <p class="rodape-titulo">Seções</p>
+        <ul class="rodape-links">
+          <li><a href="#especialidades">Especialidades e médicos</a></li>
+          <li><a href="#agendar">Agendar uma consulta</a></li>
+          <li><a href="#paciente">Área do paciente</a></li>
+          <li><a href="#como-chegar">Como chegar</a></li>
+          <li><a href="#como-funciona">Como isto funciona</a></li>
+        </ul>
+      </nav>
       <div>
-        <p>Site de demonstração da <a href="https://mileumalinhas.com.br">Mil e Uma Linhas!</a>, Cuiabá. Quer um site assim para a sua clínica? É só chamar.</p>
+        <p class="rodape-titulo">Demonstração</p>
+        <p>Site de demonstração da <a href="https://mileumalinhas.com.br">Mil e Uma Linhas!</a>, Cuiabá. Clínica, endereço, telefone, médicos, convênios e exames são fictícios. Quer um site assim para a sua clínica? É só chamar.</p>
       </div>
     </div>
   </footer>

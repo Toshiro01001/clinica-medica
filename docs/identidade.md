@@ -87,3 +87,28 @@ Nada de foto de banco de imagem, nada de pessoa, nada de estetoscópio.
 ## O que evitamos de propósito
 
 Fundo creme com terracota, preto com verde ácido, cartões iguais com sombra, rótulos em caixa alta sobre todo título, numeração 01/02/03 sem sequência real, setas em links, gradientes decorativos. Os únicos números em sequência do site são os passos do agendamento, que são de fato uma sequência.
+
+## Design systems aplicados (leva final)
+
+Dupla escolhida no catálogo da Mil e Uma Linhas!: **oemsz26-design-system** (claro, o sistema de saúde e painel do paciente: cartões brancos com anel de 1px e sombra em seis passos, linhas de lista com tile de ícone, pílulas de estado, faixa de dias, gráfico de linha com pontos destacados) e **vesper-design-system** (escuro: vidro a 80% com blur de 8px, linhas de consentimento com interruptor, botões ghost com hairline a 50%, rodapé em colunas, entrada com desfoque e orbe de luz). A paleta não mudou.
+
+**Como foram misturados.** As seções claras (#especialidades, #paciente, #como-chegar, #como-funciona) usam os padrões do oemsz26 trocando o cinza-pedra por Névoa e Lavanda, o pedra-900 por Ameixa, e deixando o âmbar só no item selecionado ou no botão principal; a sombra em seis passos fica a 3% (quase invisível, para respeitar a regra de nenhuma sombra). A faixa Ameixa (#agendar) e o rodapé usam os padrões do vesper com Ameixa no lugar do preto: vidro a 80% com blur no cabeçalho ao rolar, passos como linhas arredondadas com borda a 10%, botão ghost com hairline Névoa a 50%, rodapé em colunas com cabeçalhos pequenos em caixa alta; a cena 3D do vesper virou uma mancha radial Lavanda a 8% em canvas 2D, desenhada uma vez.
+
+Componentes aplicados (padrão, origem, onde):
+
+- Card com anel e sombra em seis passos (oemsz26): `.busca`, `.medico` (linhas da busca), `.login`, `.dica`, `.painel-topo`, `.painel-exames`, `.painel-grafico`.
+- Goal row / Friend row (oemsz26): cada médico em `#busca-lista` é uma linha com tile de 40px Lavanda com a inicial da especialidade em Young Serif, nome em Figtree 600, legenda e pílulas no fim da linha.
+- Status pill (oemsz26): convênios em `.medico-lista` (12px, peso 500, Ameixa sobre Lavanda a 60%; o convênio filtrado fica Ameixa com texto Névoa) e a etiqueta "Atende sábado".
+- Week strip (oemsz26): `#cal-grade`, dias como pílulas de 44px e raio 12px; disponível com anel Lavanda a 40% sobre Ameixa clara, selecionado em Âmbar com texto Ameixa, indisponível a 35%.
+- Line chart com pontos destacados e tooltip (oemsz26): `svg#grafico`, linha Ameixa de 2px com curva suave, faixa de referência Lavanda a 30%, pontos de raio 4 com borda branca (fora da faixa em Âmbar) e tooltip Tinta ao passar o mouse, tocar ou focar.
+- Hero photo with ink scrim (oemsz26): `.hero-foto-caixa` com véu Ameixa a 70% vindo de baixo e a legenda "Recepção · Alameda das Figueiras, 410".
+- Primary pill com seta + Play button com anel (oemsz26): `.botao-principal` (Âmbar, raio 12px, seta de 12px que anda 4px no hover) e `.botao-icone` do calendário (discos brancos de 44px com anel Lavanda e sombra média).
+- Gradient ring (oemsz26): `.exames-resumo` no topo de `.painel-exames`, anel de 96px (Lavanda, Ameixa clara, Âmbar) com disco branco e o total de valores dentro da faixa, calculado dos dados.
+- Glass header (vesper): `.topo.esta-rolado`, Ameixa a 80% com blur de 8px e hairline Lavanda a 10% depois de 20px de rolagem, transição de 300ms.
+- Consent rows + switch (vesper): `.passo` (raio 10px, fundo Ameixa clara a 60%, borda Névoa a 10%, "Passo N" em caixa alta 12px, bloqueado a 55%) e `.marcar` com interruptor de 44 por 24px.
+- Ghost button (vesper): `.botao-secundario` dentro de `.secao-escura`, `#meus-apagar` e os botões "Cancelar" dos agendamentos guardados.
+- Data display com filete à esquerda (vesper): `.hero-fatos` (filete Ameixa a 80%, valor em Young Serif 24px, rótulo em Figtree 14px) e `.painel-fato` na área do paciente (filete Lavanda).
+- Footer columns (vesper): `.rodape-grade` em três colunas com cabeçalhos em caixa alta e links Névoa a 70%.
+- Blur-in type + revelação ao rolar + orbe em canvas 2D (vesper): `#hero-titulo` entra de blur 8px em 700ms; `.funciona-bloco`, `.medico` e `.passo` sobem 12px com fade em 500ms e escada de 80ms; `#agendar-orbe` desenha a mancha radial uma vez. Tudo desligado com `prefers-reduced-motion`.
+
+**Fotos novas.** Seis lugares de foto foram criados, todos com a imagem final gerada por IA no Canva em `img/`: `consultorio-maca.webp` (4:3), `sala-espera-poltronas.webp` (4:5), `corredor-consultorios.webp` (3:2), `bancada-exames.webp` (1:1), `medica-janela.webp` (3:4, oculta abaixo de 720px) e `fachada-alameda.webp` (16:9). Nenhuma mostra rosto; são ilustrativas.
